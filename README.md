@@ -26,6 +26,8 @@ Optional: `clang-format -style=Google src/* -i`
 4. Run it: `./fractal-creator`.
   Expected output of build `./fractal-creator`:   
   `file with zoom: 100% written in 7614ms`
+5. Options are width, height, zoom, iterations
+  `./fractal-creator --iterations 99` 
 
 
 <img src="examples/out-2.png" />
@@ -72,7 +74,7 @@ Optional: `clang-format -style=Google src/* -i`
 - [x]  Derived class functions override virtual base class functions.
   see Image Implentation
 
-	
+
 ### Concurrency
 
 - [x]  A promise and future is used in the project.

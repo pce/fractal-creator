@@ -9,7 +9,7 @@
 
 Color MandelbrotImage::value(int x, int y) {
   // unsigned int max_iterations = 84;
-  unsigned int max_iterations = 34;
+  unsigned int max_iterations = _iterations;
   // unsigned int max_iterations = 100;
   // unsigned int max_iterations = 68;
 
@@ -64,3 +64,6 @@ Color MandelbrotImage::value(int x, int y) {
   }
   return color;
 }
+
+void MandelbrotImage::set_iterations(int iterations) { _iterations = iterations; }
+

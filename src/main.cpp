@@ -29,12 +29,11 @@ int opt_int(std::string arg, int ret) {
 int main(int argc, char *argv[]) {
   std::string fractal = "Mandelbrot";
 
-  // full-hd is --width 1920 --height 1080
-  // TODO:  zoom 0.5-2.5 (threads) iterations 123
   int width = 1920;
   int height = 1920;
   int zoom = 100;
   int zoom_to = 0;
+  int iterations = 0;
 
   for (int i = 0; i < argc; ++i) {
     if (std::string(argv[i]) == "--fractal" && i + 1 < argc) {
@@ -60,11 +59,11 @@ int main(int argc, char *argv[]) {
       zoom_to = opt_int(arg, zoom_to);
       std::cout << "option set zoom-to " << zoom_to << "%" << std::endl;
     }
-    // if (std::string(argv[i]) == "--iterations" && i + 1 < argc) {
-    //     std::string arg = argv[++i];
-    //     zoom_to = opt_int(arg, zoom_to);
-    //     std::cout << "set zoom-to " <<  zoom_to << "%" << std::endl;
-    // }
+    if (std::string(argv[i]) == "--iterations" && i + 1 < argc) {
+        std::string arg = argv[++i];
+        iterations = opt_int(arg, iterations);
+        std::cout << "set iterations " <<  iterations  << std::endl;
+    }
   }
 
   ProfTimer timer;
@@ -79,10 +78,13 @@ int main(int argc, char *argv[]) {
     }
     for (int i = zoom; i <= zoom_to; i += zoom_step) {
       futures.push_back(std::async(
-          [width, height, &mutex](int i) {
+          [iterations, width, height, &mutex](int i) {
             std::unique_lock<std::mutex> guard(mutex);
             MandelbrotImage img{width, height};
             img.set_zoom(i);
+            if (iterations > 0) {
+                img.set_iterations(iterations);
+            }
             img.render();
             return i;
           },
