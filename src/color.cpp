@@ -2,11 +2,22 @@
 
 Color::Color(std::string hex_color) { hex_to_rgb(hex_color); }
 
+Color::Color(unsigned int hex_color) { hex_to_rgb(hex_color); }
+
 void Color::hex_to_rgb(std::string hex_color) {
   unsigned int hex_val = std::stoul(hex_color, nullptr, 16);
-  _r = ((hex_val >> 16) & 0xFF) / 255.0;
-  _g = ((hex_val >> 8) & 0xFF) / 255.0;
-  _b = ((hex_val)&0xFF) / 255.0;
+  hex_to_rgb(hex_val);
+}
+
+/**
+ * \brief wip, this is a setter ...
+ *
+ * \param hex_val
+ */
+void Color::hex_to_rgb(unsigned int hex_val) {
+  _r = ((hex_val >> 16) & 0xff);
+  _g = ((hex_val >> 8) & 0xff);
+  _b = ((hex_val)&0xff);
 }
 
 std::string Color::rgb_to_hex() {

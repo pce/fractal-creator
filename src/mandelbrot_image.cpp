@@ -65,5 +65,6 @@ Color MandelbrotImage::value(int x, int y) {
   return color;
 }
 
-void MandelbrotImage::set_iterations(int iterations) { _iterations = iterations; }
-
+void MandelbrotImage::set_iterations(int iterations) {
+  _iterations = iterations;
+}

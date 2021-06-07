@@ -8,7 +8,7 @@
 
 #include "mandelbrot_image.h"
 #include "prof_timer.h"
-// #include "simple_image.h"
+#include "simple_image.h"
 
 int opt_int(std::string arg, int ret) {
   std::size_t pos;
@@ -37,7 +37,8 @@ int main(int argc, char *argv[]) {
 
   for (int i = 0; i < argc; ++i) {
     if (std::string(argv[i]) == "--fractal" && i + 1 < argc) {
-      fractal = argv[i++];
+      std::string arg = argv[++i];
+      fractal = arg;
     }
     if (std::string(argv[i]) == "--width" && i + 1 < argc) {
       std::string arg = argv[++i];
@@ -60,9 +61,9 @@ int main(int argc, char *argv[]) {
       std::cout << "option set zoom-to " << zoom_to << "%" << std::endl;
     }
     if (std::string(argv[i]) == "--iterations" && i + 1 < argc) {
-        std::string arg = argv[++i];
-        iterations = opt_int(arg, iterations);
-        std::cout << "set iterations " <<  iterations  << std::endl;
+      std::string arg = argv[++i];
+      iterations = opt_int(arg, iterations);
+      std::cout << "set iterations " << iterations << std::endl;
     }
   }
 
@@ -83,7 +84,7 @@ int main(int argc, char *argv[]) {
             MandelbrotImage img{width, height};
             img.set_zoom(i);
             if (iterations > 0) {
-                img.set_iterations(iterations);
+              img.set_iterations(iterations);
             }
             img.render();
             return i;
@@ -100,8 +101,37 @@ int main(int argc, char *argv[]) {
     // std::cout << "files written in " <<  timer.elapsed() << "ms" <<
     // std::endl;
 
+  } else if (fractal == "SierpinskiCarpet") {
+    int zoom_step = 10;
+
+    if (zoom_to == 0) {
+      zoom_to = zoom;
+    }
+
+    for (int i = zoom; i <= zoom_to; i += zoom_step) {
+      futures.push_back(std::async(
+          [iterations, width, height, &mutex](int i) {
+            std::unique_lock<std::mutex> guard(mutex);
+            SimpleImage img{width, height};
+            img.set_zoom(i);
+            if (iterations > 0) {
+              // img.set_iterations(iterations);
+            }
+            img.calculate();
+            img.render();
+            return i;
+          },
+          i));
+    }
+
+    // retrieve results
+    for (auto &e : futures) {
+      std::cout << "file with zoom: " << e.get() << "% written in "
+                << timer.elapsed() << "ms" << std::endl;
+    }
+
   } else {
-    std::cout << "unknown fractal" << std::endl;
+    std::cout << "unknown fractal: '" << fractal << "'" << std::endl;
     return 1;
   }
 
