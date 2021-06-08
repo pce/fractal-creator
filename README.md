@@ -39,45 +39,75 @@ Optional: `clang-format -style=Google src/* -i`
 <img src="examples/out-33.png" />
 
 
-## Criteria 	Meets Specifications
 
-### README (All Rubric Points REQUIRED)
+### Build Troubleshooting
 
-- [x]  A README with instructions is included with the project
-- [x]  The README indicates which project is chosen.
-- [x]  The README includes information about each rubric point addressed.
-- [x]  The README indicates which rubric points are addressed. 
+Due to the fact that the creator uses modern std-features like thread and filesystem older GCC must know which libraries to link.   
 
-### Compiling and Testing (All Rubric Points REQUIRED)
-
-- [x]  The submission must compile and run.
-
-### Loops, Functions, I/O
-
-- [x]  The project demonstrates an understanding of C++ functions and control structures.
-- [x]  The project reads data from a file and process the data, or the program writes data to a file.
-  Writes to File, see Image Implentation
-- [x]  The project accepts user input and processes the input.
-  see main.cpp input options as arguments, `AbstractImage::render()` outputs ppm  
-
-### Object Oriented Programming
-
-- [x]  The project uses Object Oriented Programming techniques.
-- [x]  Classes use appropriate access specifiers for class members.
-- [x]  Class constructors utilize member initialization lists.
-  see prof_timer.cpp  
-- [x]  Classes abstract implementation details from their interfaces.
-- [x]  Classes encapsulate behavior.
-- [x]  Classes follow an appropriate inheritance hierarchy.
-  AbstractImage as parent or BaseClass of MandelbrotImage  
-- [x]  Overloaded functions allow the same function to operate on different parameters.	
-- [x]  Derived class functions override virtual base class functions.
-  see Image Implentation
+Adjust the CMakefiles.txt
+`set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")` or 
+`set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread -lstdc++fs")`
 
 
-### Concurrency
 
-- [x]  A promise and future is used in the project.
-  see main.cpp
-- [x]  A mutex or lock is used in the project.
-  see main.cpp
+
+## Overview
+
+
+Options are width, height, zoom, iterations and the fractal (Mandelbrot, SierpinskiCarpet).
+
+`./fractal-creator --fractal Mandelbrot --iterations 99` 
+
+
+`./fractal-creator --fractal SierpinskiCarpet`
+
+
+### Image Concept
+
+
+AbstractImage is the BaseClass of MandelbrotImage and SimpleImage. 
+Childs override `virtual Color value(int x, int y)`.
+
+
+                +---------------.-+    
+                | AbstractImage   |       
+                +-----------------+    
+                | render()        |    
+                +--------^--------+    
+                        /_\            
+                         |             
+               +--------------------             
+               |                    |
+    +------------------+    +--------------+ 
+    | MandelbrotImage  |    | SimpleImage  |   
+    +------------------+    +--------------+ 
+    | value(x, y)      |    | value(x, y)  |   
+    +------------------+    +--------------+    
+
+
+SimpleImage  is a sample class that holds a precomputed array of pixels, since it is derived from AbstractImage, SimpleImage returns a precomputed value of the private pixel array   
+
+The pixel array is stored one-dimensionally as a simple vector of hexadecimal RGB values. 
+
+      +---- +-----+-----+-----+-----+-----+-----+-----+-----+
+      | 0xd | 0xe | 0xf | 0xc | 0xa | 0xa | 0xa | 0xa | 0xa | --+ width * height 
+      +-----+ -----+-----+-----+----+-----+-----+-----+-----+ 
+
+
+Rendered two dimensional  `[ y * width + x ] --+ ( x , y )`
+ 
+      +---- +-----+-----+
+      | rgb | rgb | rgb | 
+      +-----+ -----+----+
+      | rgb | rgb | rgb | 
+      +---- +-----+-----+
+      | rgb | rgb | rgb | 
+      +-----+ -----+----+ 
+
+
+
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
