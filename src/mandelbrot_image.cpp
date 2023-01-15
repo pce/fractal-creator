@@ -7,7 +7,8 @@
 
 #include "color.h"
 
-Color MandelbrotImage::value(int x, int y) {
+Color MandelbrotImage::value(int x, int y)
+{
   // unsigned int max_iterations = 84;
   unsigned int max_iterations = _iterations;
   // unsigned int max_iterations = 100;
@@ -37,13 +38,15 @@ Color MandelbrotImage::value(int x, int y) {
   std::complex<double> z{0, 0};
 
   unsigned int iteration = 0;
-  while (iteration < max_iterations) {
+  while (iteration < max_iterations)
+  {
     // calculate the mandelbrot function
     // Complex multiplication, then addition
     z = z * z + c;
 
     // higher smoother shading
-    if (std::abs(z) > 32.0) break;
+    if (std::abs(z) > 32.0)
+      break;
 
     iteration++;
   }
@@ -58,13 +61,33 @@ Color MandelbrotImage::value(int x, int y) {
 
   Color color{r_val, g_val, b_val};
 
-  if (iteration < max_iterations) {
+  if (iteration < max_iterations)
+  {
     // color = long_rainbow(max_iterations * 3, iteration);
     color = long_rainbow(max_iterations * 0.75, iteration);
   }
+  // set color into pixel_array
+
+  // set_pixel(x, y, color);
+
   return color;
 }
 
-void MandelbrotImage::set_iterations(int iterations) {
+void MandelbrotImage::set_pixel(int x, int y, Color color)
+{
+  if (x < 0 || y < 0 || x >= _width || y >= _height)
+  {
+    return;
+  }
+  pixel_array[y * _width + x] = color.GetRGB();
+}
+
+void MandelbrotImage::init()
+{
+  pixel_array.reserve(_width * _height);
+}
+
+void MandelbrotImage::set_iterations(int iterations)
+{
   _iterations = iterations;
 }

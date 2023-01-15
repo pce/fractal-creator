@@ -9,6 +9,7 @@ class SimpleImage : public AbstractImage {
  public:
   SimpleImage(int width, int height) : AbstractImage(width, height) {}
   Color value(int x, int y) override;
+  void init() override;
   void calculate();
 
  private:
@@ -19,7 +20,6 @@ class SimpleImage : public AbstractImage {
   void set_pixel(int x, int y);
   unsigned int get_pixel(int x, int y);
   // [(row * columns) + column]
-  std::vector<int> pixel_array;
   unsigned int _color = 0x55000000;
   // ...
   int limit = 0;

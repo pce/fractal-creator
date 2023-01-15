@@ -24,9 +24,14 @@ class Color {
   void hex_to_rgb(unsigned int hex_val);
   std::string rgb_to_hex();
 
+  unsigned long GetRGB();
+
   static constexpr unsigned int red() { return 0xff0000; }
   static constexpr unsigned int green() { return 0x00ff00; }
+  static constexpr unsigned int yellow() { return 0xffff00; }
   static constexpr unsigned int blue() { return 0x0000ff; }
+  static constexpr unsigned int magenta() { return 0xff00ff; }
+  static constexpr unsigned int cyan() { return 0x00ffff; }
   static constexpr unsigned int black() { return 0x0000000; }
   static constexpr unsigned int white() { return 0xffffff; }
 

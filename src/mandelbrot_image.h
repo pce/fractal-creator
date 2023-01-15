@@ -4,17 +4,22 @@
 #include "abstract_image.h"
 #include "color.h"
 
-class MandelbrotImage : public AbstractImage {
- public:
+class MandelbrotImage : public AbstractImage
+{
+public:
   // using initialization lists to initialize the parent class
   MandelbrotImage(int width, int height) : AbstractImage(width, height) {}
   void set_iterations(int iterations);
+  void init() override;
 
- protected:
+protected:
   /** \brief Color value implementation  */
   Color value(int x, int y) override;
   /** \brief Integer maximum of iterations */
   int _iterations = 34;
+
+private:
+  void set_pixel(int x, int y, Color color);
 };
 
 #endif

@@ -6,10 +6,12 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 AbstractImage::AbstractImage() {
   std::cout << "construct AbstractImage" << std::endl;
 }
+
 AbstractImage::AbstractImage(int width, int height)
     : _width(width), _height(height) {}
 
@@ -24,6 +26,9 @@ int AbstractImage::get_height() { return _height; }
 void AbstractImage::set_zoom(int zoom) { _zoom = zoom; }
 
 int AbstractImage::get_zoom() { return _zoom; }
+
+std::vector<int> AbstractImage::get_pixels() { return pixel_array; }
+
 
 /**
  * \brief Get the incremented filename (function that may belong to FileUtils)
@@ -44,7 +49,7 @@ std::string get_inc_filename() {
   return name;
 }
 
-void AbstractImage::render() {
+void AbstractImage::render_to_file() {
   std::ofstream img{get_inc_filename(), std::ofstream::out};
   if (!img.is_open()) {
     std::cerr << "could not open file"
@@ -64,6 +69,17 @@ void AbstractImage::render() {
 
   img.close();
 }
+
+void AbstractImage::render() {
+  for (int y = 1; y <= _height; ++y) {
+    // std::cerr << "\r" << y * 100 / _height << "% " << std::flush;
+    for (int x = 1; x <= _width; ++x) {
+      Color color = value(x, y);
+      std::cout << color.r() << " " << color.g() << " " << color.b() << "\n";
+    }
+  }
+}
+
 
 Color AbstractImage::long_rainbow(double val, double max) {
   double ratio = max / val;

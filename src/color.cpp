@@ -38,3 +38,7 @@ void Color::r(int r) { _r = r; }
 void Color::g(int g) { _g = g; }
 
 void Color::b(int b) { _b = b; }
+
+unsigned long Color::GetRGB() { 
+    return ((_r & 0xff) << 16) + ((_g & 0xff) << 8) + (_b & 0xff);
+}
