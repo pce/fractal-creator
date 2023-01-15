@@ -33,14 +33,14 @@ void ImageCreator::Create()
                 [iterations, width, height, &mutex](int i)
                 {
                     std::unique_lock<std::mutex> guard(mutex);
-                    // MandelbrotImage img{width, height};
-                    // img.init();
-                    // img.set_zoom(i);
-                    // if (iterations > 0)
-                    // {
-                    //     img.set_iterations(iterations);
-                    // }
-                    // img.render_to_file();
+                    MandelbrotImage img{width, height};
+                    img.init();
+                    img.set_zoom(i);
+                    if (iterations > 0)
+                    {
+                        img.set_iterations(iterations);
+                    }
+                    img.render_to_file();
                     return i;
                 },
                 i));
@@ -101,14 +101,31 @@ void ImageCreator::Create()
 
 void ImageCreator::Update()
 {
-    SimpleImage img{_width, _height};
-    img.set_zoom(_zoom);
-    img.calculate();
-    pixel_array = img.get_pixels();
-    // std::cout << "pixel_array.size=" << pixel_array.size();
+    // experimenting, this should be done in a thread
+
+    if (_fractal == "Mandelbrot")
+    {
+        MandelbrotImage img{_width, _height};
+        img.init();
+        img.set_zoom(_zoom);
+        if (_iterations > 0)
+        {
+            img.set_iterations(_iterations);
+        }
+        img.render_to_file();
+        pixel_array = img.get_pixels();
+    }
+    else
+    {
+        SimpleImage img{_width, _height};
+        img.init();
+        img.set_zoom(_zoom);
+        img.calculate();
+        pixel_array = img.get_pixels();
+    }
 }
 
-std::vector<int> ImageCreator::Render()
+std::vector<int> const &ImageCreator::GetPixelArray() const
 {
     return pixel_array;
 }

@@ -8,6 +8,13 @@
 class SimpleImage : public AbstractImage {
  public:
   SimpleImage(int width, int height) : AbstractImage(width, height) {}
+  /**
+   * @brief returns the value of the precalculated pixel array
+   * 
+   * @param x 
+   * @param y 
+   * @return Color 
+   */
   Color value(int x, int y) override;
   void init() override;
   void calculate();
@@ -19,9 +26,7 @@ class SimpleImage : public AbstractImage {
   void draw_carpet(int x, int y, int size);
   void set_pixel(int x, int y);
   unsigned int get_pixel(int x, int y);
-  // [(row * columns) + column]
   unsigned int _color = 0x55000000;
-  // ...
   int limit = 0;
 };
 

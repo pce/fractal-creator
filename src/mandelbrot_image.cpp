@@ -7,6 +7,12 @@
 
 #include "color.h"
 
+void MandelbrotImage::init()
+{
+  pixel_array.resize(_width * _height + 1);
+  pixel_array.reserve(_width * _height + 1);
+}
+
 Color MandelbrotImage::value(int x, int y)
 {
   // unsigned int max_iterations = 84;
@@ -68,7 +74,7 @@ Color MandelbrotImage::value(int x, int y)
   }
   // set color into pixel_array
 
-  // set_pixel(x, y, color);
+  set_pixel(x, y, color);
 
   return color;
 }
@@ -79,12 +85,18 @@ void MandelbrotImage::set_pixel(int x, int y, Color color)
   {
     return;
   }
-  pixel_array[y * _width + x] = color.GetRGB();
-}
-
-void MandelbrotImage::init()
-{
-  pixel_array.reserve(_width * _height);
+  try
+  {
+    pixel_array.at(y * _width + x) = color.GetRGB();
+  }
+  catch (std::out_of_range &e)
+  {
+    std::cerr << "MandelbrotImage::set_pixel Out of range error: " << e.what() << '\n';
+  }
+  catch (std::exception &e)
+  {
+    std::cerr << "MandelbrotImage::set_pixel Exception: " << e.what() << '\n';
+  }
 }
 
 void MandelbrotImage::set_iterations(int iterations)

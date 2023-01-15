@@ -5,7 +5,9 @@
 
 void SimpleImage::init()
 {
-  pixel_array.reserve(_width * _height);
+  std::cout << "SimpleImage::init " << std::endl;
+  pixel_array.resize(_width * _height + 1);
+  pixel_array.reserve(_width * _height + 1);
 }
 
 void SimpleImage::set_pixel(int x, int y)
@@ -14,7 +16,20 @@ void SimpleImage::set_pixel(int x, int y)
   {
     return;
   }
-  pixel_array[y * _width + x] = _color;
+
+  try
+  {
+    pixel_array.at(y * _width + x) = _color;
+  }
+  catch (const std::out_of_range &e)
+  {
+    std::cerr << "Exception SimpleImage::set_pixel out_of_range: " << e.what() << std::endl;
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Exception SimpleImage::set_pixel: " << e.what() << std::endl;
+  }
+  // std::cout << "SimpleImage::set_pixel " << _color << std::endl;
 }
 
 unsigned int SimpleImage::get_pixel(int x, int y)
@@ -44,9 +59,9 @@ void SimpleImage::draw_bg(unsigned int color)
   {
     pixel_array[i] = color;
   }
-  // std::cout << "Size : " << pixel_array.size() << std::endl;
-  // std::cout << "Capacity : " << pixel_array.capacity() << std::endl;
-  // std::cout << "Max_Size : " << pixel_array.max_size() << std::endl;
+  std::cout << "Size : " << pixel_array.size() << std::endl;
+  std::cout << "Capacity : " << pixel_array.capacity() << std::endl;
+  std::cout << "Max_Size : " << pixel_array.max_size() << std::endl;
 }
 
 void SimpleImage::draw_rect(int x1, int y1, int x2, int y2)
@@ -90,10 +105,10 @@ void SimpleImage::calculate()
 {
   // example
   draw_bg(Color::green());
+  draw_rect(10, 10, _width - 10, _height - 10);
 
   set_color(Color::blue());
   draw_rect(3, 3, _width - 6, _height - 6);
-  draw_rect(10, 10, _width - 10, _height - 10);
   draw_rect(30, 30, _width - 30, _height - 30);
 
   // set_color(Color::black());
@@ -102,18 +117,7 @@ void SimpleImage::calculate()
 
 Color SimpleImage::value(int x, int y)
 {
-  // IDEA calculate -> draw_polygon/rect, for example a SierpinskiCarpet or
-  // Pythagoras Tree (as PixelArray) SimpleImage::value returns the value from
-  // the precalculation
-
-  // vector[(row * columns) + column] -> `PixelArray::get_value(x, y)`
-  // unsigned int rgb_val = pixel_array[(x * y) + y];
   unsigned int rgb_val = get_pixel(x, y);
-
   Color color{rgb_val};
-
-  // std::cout << "color.rgb_to_hex: " << color.rgb_to_hex() << " from:" <<
-  // rgb_val << std::endl; color.hex_to_rgb(rgb_val);
-
   return color;
 }

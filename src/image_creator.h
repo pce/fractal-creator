@@ -17,7 +17,7 @@ public:
     ImageCreator() {}
     void Create();
     void Update();
-    std::vector<int> Render();
+    std::vector<int> const &GetPixelArray() const;
     // SetFractal(std::string fractal);
     // SetZoom(int zoom);
     // SetZoomTo(int zoom_to);

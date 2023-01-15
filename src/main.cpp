@@ -112,7 +112,8 @@ int main(int argc, char *argv[])
       }
     }
     // update renderer
-    renderer.Render(imageCreator.Render());
+    const std::vector<int> pixelArray = imageCreator.GetPixelArray();
+    renderer.Render(pixelArray);
     // delay
     SDL_Delay(1000 / 60);
   }

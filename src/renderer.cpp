@@ -44,18 +44,19 @@ void Renderer::Render(std::vector<int> const &pixelArray)
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    for (int i = 0; i < pixelArray.size(); i++)
+    int i = 0;
+    for (auto& colorValue : pixelArray)
     {
-        Color color = Color{static_cast<unsigned int>(pixelArray[i])};
+        Color color = Color{static_cast<unsigned int>(colorValue)};
         SDL_SetRenderDrawColor(renderer, color.r(), color.g(), color.b(), 255);
-        // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         int x = i % screen_width;
         int y = i / screen_width;
 
-        std::cout << "x: " << x << " y: " << y << std::endl;        
+        // std::cout << "x: " << x << " y: " << y << std::endl;
 
         SDL_RenderDrawPoint(renderer, x, y);
+        i++;
     }
 
     SDL_RenderPresent(renderer);
