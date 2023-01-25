@@ -10,6 +10,8 @@
 #include "prof_timer.h"
 #include "simple_image.h"
 #include "image_creator.h"
+#include "input_controller.h"
+#include "slider.h"
 #include "renderer.h"
 
 int opt_int(std::string arg, int ret)
@@ -95,25 +97,31 @@ int main(int argc, char *argv[])
   }
 
   // controller
-  SDL_Event event;
+  InputController inputController;
+  // inputController.SetImageCreator(imageCreator);
+
+  // initialize uiElements
+  // std::vector<UIElement*> uiElements = { new Slider(0, 0, 100, 100) };
+  auto slider = new Slider();
+  slider->SetH(20);
+  slider->SetW(100);
+  slider->SetX(10);
+  slider->SetY(10);
+  // slider->SetValue(50);
+
+  renderer.AddUIElement(slider);
 
   // update PixelArray
   imageCreator.Update();
     
   bool isRunning = true;
+  bool showUI = false;
   while (isRunning)
   {
-    // controller
-    while (SDL_PollEvent(&event))
-    {
-      if (event.type == SDL_QUIT)
-      {
-        isRunning = false;
-      }
-    }
+    inputController.HandleInput(isRunning, showUI, renderer.GetUiElements());
     // update renderer
     const std::vector<int> pixelArray = imageCreator.GetPixelArray();
-    renderer.Render(pixelArray);
+    renderer.Render(pixelArray, showUI);
     // delay
     SDL_Delay(1000 / 60);
   }

@@ -36,30 +36,38 @@ bool Renderer::InitRenderer()
     return true;
 }
 
-void Renderer::Render(std::vector<int> const &pixelArray)
+void Renderer::Render(std::vector<int> const &pixelArray, bool showUI)
 {
-    // update screen
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
     int i = 0;
-    for (auto& colorValue : pixelArray)
+    for (auto &colorValue : pixelArray)
     {
         Color color = Color{static_cast<unsigned int>(colorValue)};
         SDL_SetRenderDrawColor(renderer, color.r(), color.g(), color.b(), 255);
-
         int x = i % screen_width;
         int y = i / screen_width;
-
         // std::cout << "x: " << x << " y: " << y << std::endl;
-
         SDL_RenderDrawPoint(renderer, x, y);
         i++;
     }
+    if (showUI)
+    {
+        for (auto &uiElement : uiElements)
+        {
+            uiElement->Draw(renderer);
+        }
+    }
 
     SDL_RenderPresent(renderer);
+}
+
+void Renderer::AddUIElement(UIElement *element)
+{
+    uiElements.push_back(element);
 }
 
 // destructor destroys the window and renderer
