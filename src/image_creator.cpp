@@ -146,11 +146,14 @@ void ImageCreator::SetZoomTo(int zoom_to)
 
 void ImageCreator::SetIterations(int iterations)
 {
+    _iterations = iterations;
 }
+
 void ImageCreator::SetWidth(int width)
 {
     _width = width;
 }
+
 void ImageCreator::SetHeight(int height)
 {
     _height = height;

@@ -102,17 +102,32 @@ int main(int argc, char *argv[])
 
   // initialize uiElements
   // std::vector<UIElement*> uiElements = { new Slider(0, 0, 100, 100) };
+
+  int marginTop = 5;
+
   auto slider = new Slider();
   slider->SetH(20);
   slider->SetW(100);
   slider->SetX(10);
   slider->SetY(10);
-  slider->SetMin(0);
+  slider->SetMin(0); // 30
   slider->SetMax(200);
   // slider->SetValue(50);
   slider->SetName("zoom");
 
   renderer.AddUIElement(slider);
+
+  auto sliderIterations = new Slider();
+  sliderIterations->SetH(20);
+  sliderIterations->SetW(100);
+  sliderIterations->SetX(10);
+  sliderIterations->SetY(30 + marginTop);
+  sliderIterations->SetMin(0); // 30
+  sliderIterations->SetMax(200);
+  // slider->SetValue(50);
+  sliderIterations->SetName("iterations");
+
+  renderer.AddUIElement(sliderIterations);
 
   // update PixelArray
   imageCreator.Update();

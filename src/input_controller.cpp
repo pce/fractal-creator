@@ -4,7 +4,7 @@
 #include "SDL.h"
 
 // handle input
-void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector <UIElement*> uiElements)
+void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<UIElement *> uiElements)
 {
     SDL_Point mouse;
     SDL_Event event;
@@ -21,12 +21,15 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector <UI
                     for (auto uiElement : uiElements)
                     {
                         uiElement->SetMousePosition(mouse.x, mouse.y);
-                        if (uiElement->GetName() == "zoom") {
+                        if (uiElement->GetName() == "zoom")
+                        {
                             _imageCreator->SetZoom(uiElement->GetValue());
                             _imageCreator->Update();
                         }
-                        if (uiElement->GetName() == "iterations") {
+                        if (uiElement->GetName() == "iterations")
+                        {
                             _imageCreator->SetIterations(uiElement->GetValue());
+                            _imageCreator->Update();
                         }
                     }
                 }
@@ -71,4 +74,3 @@ void InputController::SetImageCreator(ImageCreator &imageCreator)
 {
     _imageCreator = &imageCreator;
 }
-
