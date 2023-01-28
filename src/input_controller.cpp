@@ -11,7 +11,8 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector <UI
     while (SDL_PollEvent(&event))
     {
         SDL_GetMouseState(&mouse.x, &mouse.y);
-        if (event.type == SDL_MOUSEBUTTONDOWN)
+        // if (event.type == SDL_INPUTBUTTONUP)
+        if (event.type == SDL_MOUSEBUTTONUP)
         {
             if (event.button.button == SDL_BUTTON_LEFT)
             {
@@ -20,6 +21,13 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector <UI
                     for (auto uiElement : uiElements)
                     {
                         uiElement->SetMousePosition(mouse.x, mouse.y);
+                        if (uiElement->GetName() == "zoom") {
+                            _imageCreator->SetZoom(uiElement->GetValue());
+                            _imageCreator->Update();
+                        }
+                        if (uiElement->GetName() == "iterations") {
+                            _imageCreator->SetIterations(uiElement->GetValue());
+                        }
                     }
                 }
             }
@@ -59,7 +67,8 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector <UI
     }
 }
 
-void InputController::SetImageCreator(ImageCreator const &imageCreator)
+void InputController::SetImageCreator(ImageCreator &imageCreator)
 {
     _imageCreator = &imageCreator;
 }
+

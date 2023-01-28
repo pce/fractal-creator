@@ -10,10 +10,10 @@ class InputController
 {
 public:
     void HandleInput(bool &isRunning, bool &showUI, std::vector <UIElement*> uiElements);
-    void SetImageCreator(ImageCreator const &imageCreator);
+    void SetImageCreator(ImageCreator &imageCreator);
 
 private:
-    ImageCreator const *_imageCreator;
+    ImageCreator *_imageCreator;
 };
 
 #endif

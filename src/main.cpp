@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
   // controller
   InputController inputController;
-  // inputController.SetImageCreator(imageCreator);
+  inputController.SetImageCreator(imageCreator);
 
   // initialize uiElements
   // std::vector<UIElement*> uiElements = { new Slider(0, 0, 100, 100) };
@@ -107,7 +107,10 @@ int main(int argc, char *argv[])
   slider->SetW(100);
   slider->SetX(10);
   slider->SetY(10);
+  slider->SetMin(0);
+  slider->SetMax(200);
   // slider->SetValue(50);
+  slider->SetName("zoom");
 
   renderer.AddUIElement(slider);
 

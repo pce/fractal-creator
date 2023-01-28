@@ -129,3 +129,39 @@ std::vector<int> const &ImageCreator::GetPixelArray() const
 {
     return pixel_array;
 }
+
+void ImageCreator::SetFractal(std::string fractal)
+{
+    _fractal = fractal;
+}
+void ImageCreator::SetZoom(int zoom)
+{
+    _zoom = zoom;
+}
+
+void ImageCreator::SetZoomTo(int zoom_to)
+{
+    _zoom_to = zoom_to;
+}
+
+void ImageCreator::SetIterations(int iterations)
+{
+}
+void ImageCreator::SetWidth(int width)
+{
+    _width = width;
+}
+void ImageCreator::SetHeight(int height)
+{
+    _height = height;
+}
+
+void ImageCreator::SetFilename(std::string filename)
+{
+    _filename = filename;
+}
+
+void ImageCreator::SetPath(std::string path)
+{
+    _path = path;
+}

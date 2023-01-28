@@ -18,18 +18,20 @@ public:
     void Create();
     void Update();
     std::vector<int> const &GetPixelArray() const;
-    // SetFractal(std::string fractal);
-    // SetZoom(int zoom);
-    // SetZoomTo(int zoom_to);
-    // SetIterations(int iterations);
-    // SetWidth(int width);
-    // SetHeight(int height);
-    // SetFilename(std::string filename);
-    // SetPath(std::string path);
-    // SetFiletype(std::string filetype);
+    void SetFractal(std::string fractal);
+    void SetZoom(int zoom);
+    void SetZoomTo(int zoom_to);
+    void SetIterations(int iterations);
+    void SetWidth(int width);
+    void SetHeight(int height);
+    void SetFilename(std::string filename);
+    void SetPath(std::string path);
+    // void SetFiletype(std::string filetype);
 
 private:
     std::string _fractal = "Mandelbrot";
+    std::string _filename = "";
+    std::string _path = "";
     int _width = 640;
     int _height = 640;
     int _zoom = 100;

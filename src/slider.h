@@ -4,7 +4,7 @@
 #include "ui_element.h"
 
 class Slider : public UIElement {
-
+public:
     void Draw(SDL_Renderer *renderer);
     void Update();
     void SetMousePosition(int x, int y);
@@ -15,9 +15,8 @@ class Slider : public UIElement {
 
 
 protected:
-    int _value{0};
     int _min{0};
-    int _max{0};
+    int _max{100};
 
 };
 

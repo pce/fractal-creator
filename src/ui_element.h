@@ -2,7 +2,7 @@
 #define UI_ELEMENT_H
 
 #include <vector>
-
+#include <string>
 #include "SDL.h"
 
 class UIElement
@@ -16,7 +16,17 @@ public:
     virtual void Update() = 0;
     virtual void SetMousePosition(int x, int y) = 0;
 
+    void SetName(std::string name)
+    {
+        _name = name;
+    }
+    std::string GetName()
+    {
+        return _name;
+    }
     // bool IsMouseOver(int x, int y);
+    int GetValue() { return _value; }
+    // float GetValue() { return _value; }
     int GetX() { return _x; }
     int GetY() { return _y; }
     int GetW() { return _w; }
@@ -28,6 +38,8 @@ public:
     void SetH(int h) { _h = h; }
 
 protected:
+    std::string _name{""};
+    int _value{0};
     int _x{0};
     int _y{0};
     int _w{0};
