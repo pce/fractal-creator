@@ -4,6 +4,7 @@
 #include "SDL.h"
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "ui_element.h"
 
 class Renderer
@@ -14,9 +15,11 @@ public:
     ~Renderer();
     bool InitRenderer();
     void Render(std::vector<int> const &pixelArray, bool showUI);
-    void AddUIElement(UIElement *element);
-    // SetUiElements(std::vector <UIElement*> uiElements)
-    std::vector<UIElement *> GetUiElements() { return uiElements; }
+    void AddUIElement(std::shared_ptr<UIElement> element);
+
+    std::vector<std::shared_ptr<UIElement>> GetUiElements() { return uiElements; }
+    // SetUiElements(std::vector<std::shared_ptr<UIElement>> uiElements)
+
     // void UpdateUIElements();
     // void DrawUIElements();
 
@@ -27,7 +30,7 @@ private:
     const std::size_t screen_width = 640;
     const std::size_t screen_height = 640;
 
-    std::vector<UIElement *> uiElements;
+    std::vector<std::shared_ptr<UIElement>> uiElements;
 };
 
 #endif

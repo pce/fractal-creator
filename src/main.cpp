@@ -5,6 +5,7 @@
 #include <thread>
 #include <utility>
 #include <vector>
+#include <memory>
 
 #include "mandelbrot_image.h"
 #include "prof_timer.h"
@@ -105,19 +106,22 @@ int main(int argc, char *argv[])
 
   int marginTop = 5;
 
-  auto slider = new Slider();
-  slider->SetH(20);
-  slider->SetW(100);
-  slider->SetX(10);
-  slider->SetY(10);
-  slider->SetMin(0); // 30
-  slider->SetMax(200);
-  // slider->SetValue(50);
-  slider->SetName("zoom");
+  // use smart pointer to avoid memory leak
+  std::shared_ptr<Slider> sliderZoom = std::make_shared<Slider>();
+  
+  sliderZoom->SetH(20);
+  sliderZoom->SetW(100);
+  sliderZoom->SetX(10);
+  sliderZoom->SetY(10);
+  sliderZoom->SetMin(0); // 30
+  sliderZoom->SetMax(200);
+  // sliderZoom->SetValue(50);
+  sliderZoom->SetName("zoom");
 
-  renderer.AddUIElement(slider);
+  renderer.AddUIElement(std::move(sliderZoom)); 
 
-  auto sliderIterations = new Slider();
+  std::shared_ptr<Slider> sliderIterations = std::make_shared<Slider>();
+  
   sliderIterations->SetH(20);
   sliderIterations->SetW(100);
   sliderIterations->SetX(10);
@@ -127,8 +131,9 @@ int main(int argc, char *argv[])
   // slider->SetValue(50);
   sliderIterations->SetName("iterations");
 
-  renderer.AddUIElement(sliderIterations);
-
+  renderer.AddUIElement(std::move(sliderIterations)); 
+  
+  // renderer.AddUIElement(std::move(sliderIterations));
   // update PixelArray
   imageCreator.Update();
     

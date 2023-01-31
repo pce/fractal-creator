@@ -9,7 +9,7 @@ class ImageCreator;
 class InputController
 {
 public:
-    void HandleInput(bool &isRunning, bool &showUI, std::vector <UIElement*> uiElements);
+    void HandleInput(bool &isRunning, bool &showUI, std::vector<std::shared_ptr<UIElement>> uiElements);
     void SetImageCreator(ImageCreator &imageCreator);
 
 private:

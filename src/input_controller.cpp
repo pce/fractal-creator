@@ -4,7 +4,7 @@
 #include "SDL.h"
 
 // handle input
-void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<UIElement *> uiElements)
+void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std::shared_ptr<UIElement>> uiElements)
 {
     SDL_Point mouse;
     SDL_Event event;

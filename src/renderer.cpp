@@ -65,7 +65,7 @@ void Renderer::Render(std::vector<int> const &pixelArray, bool showUI)
     SDL_RenderPresent(renderer);
 }
 
-void Renderer::AddUIElement(UIElement *element)
+void Renderer::AddUIElement(std::shared_ptr<UIElement> element)
 {
     uiElements.push_back(element);
 }
