@@ -3,10 +3,12 @@
 
 #include "ui_element.h"
 #include <string>
+#include <functional>
 
 class Button : public UIElement
 {
 public:
+    Button() : _callback(nullptr) {}
     void Draw(SDL_Renderer *renderer);
     void Update();
     void SetMousePosition(int x, int y);
@@ -18,14 +20,19 @@ public:
     void SetMax(int max);
     void SetLabel(const std::string &label);
     void SetName(const std::string &name);
+    void SetCallback(std::function<void()> callback);
     bool HitTest(int x, int y);
-    
+
 
 protected:
     int _min{0};
     int _max{100};
     std::string _label;
     std::string _name;
+
+private:
+    std::function<void()> _callback;
+
 };
 
 #endif

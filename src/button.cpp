@@ -1,6 +1,9 @@
 #include "button.h"
 
 #include <iostream>
+#include <string>
+#include <exception>
+
 #include "SDL.h"
 
 void Button::Draw(SDL_Renderer *renderer)
@@ -41,10 +44,18 @@ void Button::SetMax(int max)
 
 void Button::SetMousePosition(int x, int y)
 {
-    std::cout << "Mouse clicked at: " << x << ", " << y << std::endl;
+    // std::cout << "Mouse clicked at: " << x << ", " << y << std::endl;
     if (HitTest(x, y))
     {
         std::cout << "Mouse clicked on button: " << _label << std::endl;
+        try
+        {
+            _callback();
+        }
+        catch (const std::bad_function_call &e)
+        {
+            std::cerr << "Button has no callback function: " << e.what() << std::endl;
+        }
     }
 }
 
@@ -85,4 +96,9 @@ void Button::SetW(int w)
 void Button::SetH(int h)
 {
     _h = h;
+}
+
+void Button::SetCallback(std::function<void()>  callback)
+{
+    _callback = callback;
 }

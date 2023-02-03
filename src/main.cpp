@@ -157,6 +157,10 @@ int main(int argc, char *argv[])
   buttonNext->SetMax(200);
   buttonNext->SetLabel("Next");
   buttonNext->SetName("buttonNext");
+  buttonNext->SetCallback([&imageCreator]() {
+    imageCreator.NextFractal();
+    imageCreator.Update();    
+  });
 
   renderer.AddUIElement(std::move(buttonNext));
 

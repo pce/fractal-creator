@@ -41,7 +41,7 @@ void Slider::SetMax(int max)
 
 void Slider::SetMousePosition(int x, int y)
 {
-    std::cout << "Mouse clicked at: " << x << ", " << y << std::endl;
+    // std::cout << "Mouse clicked at: " << x << ", " << y << std::endl;
     if (HitTest(x, y))
     {
         _value = mathutil::map(x - _x, 0, _w, _min, _max);

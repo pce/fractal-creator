@@ -180,3 +180,10 @@ void ImageCreator::PrevFractal()
     _currentFractal = (_currentFractal - 1 + _fractalList.size()) % _fractalList.size();
     SetFractal(_fractalList[_currentFractal]);
 }
+
+// void ImageCreator::SetColor(int r, int g, int b)
+// {
+//     _r = r;
+//     _g = g;
+//     _b = b;
+// }

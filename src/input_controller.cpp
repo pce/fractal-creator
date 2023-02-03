@@ -31,6 +31,29 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std
                             _imageCreator->SetIterations(uiElement->GetValue());
                             _imageCreator->Update();
                         }
+                        // buttonNext
+                        if (uiElement->GetName() == "buttonNext")
+                        {
+                            std::cout << "buttonNext" << std::endl;
+                            _imageCreator->NextFractal();
+                            _imageCreator->Update();
+                        }
+                        // if (uiElement->GetName() == "color")
+                        // {
+                        //     _imageCreator->SetColor(uiElement->GetValue());
+                        //     _imageCreator->Update();
+                        // }
+                        // if (uiElement->GetName() == "fractal")
+                        // {
+                        //      TODO by index of List
+                        //     _imageCreator->SetFractal(uiElement->GetValue());
+                        //     _imageCreator->Update();
+                        // }
+                        if (uiElement->GetName() == "save")
+                        {
+                            // _imageCreator->SaveImage();
+                        }
+
                     }
                 }
             }
@@ -68,7 +91,7 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std
             if (event.button.button == SDL_BUTTON_LEFT)
             {
                 // _imageCreator->SetMousePosition(mouse.x, mouse.y);
-                _imageCreator->NextFractal();
+                // _imageCreator->NextFractal();
             }
         }
 
@@ -81,7 +104,9 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std
                 isRunning = false;
                 break;
             case SDLK_SPACE:
-                showUI = !showUI;
+                // showUI = !showUI;
+                _imageCreator->NextFractal();
+                _imageCreator->Update();
                 break;
             case SDLK_s:
                 // _imageCreator->SaveImage();
@@ -98,10 +123,12 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std
                 // Left Arrows Key
             case SDLK_LEFT:
                 // _imageCreator->MoveImage(-1, 0);
+                _imageCreator->PrevFractal();
                 break;
                 // Right Arrows Key
             case SDLK_RIGHT:
                 // _imageCreator->MoveImage(1, 0);
+                _imageCreator->NextFractal();
                 break;
 
             default:
