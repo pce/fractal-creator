@@ -2,8 +2,10 @@
 #define UI_ELEMENT_H
 
 #include <vector>
+#include <memory>
 #include <string>
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 class UIElement
 {
@@ -36,6 +38,14 @@ public:
     void SetY(int y) { _y = y; }
     void SetW(int w) { _w = w; }
     void SetH(int h) { _h = h; }
+    // void SetFont(std::shared_ptr<TTF_Font> font)
+    // {
+    //     _font = font;
+    // }
+    void SetFont(TTF_Font* font)
+    {
+        _font = font;
+    }
 
 protected:
     std::string _name{""};
@@ -44,6 +54,8 @@ protected:
     int _y{0};
     int _w{0};
     int _h{0};
+    // std::shared_ptr<TTF_Font> _font;
+    TTF_Font* _font;
 };
 
 #endif

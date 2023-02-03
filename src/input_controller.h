@@ -3,6 +3,9 @@
 
 #include "image_creator.h"
 #include "ui_element.h"
+#include <memory>
+#include <vector>
+
 
 class ImageCreator;
 

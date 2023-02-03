@@ -27,7 +27,6 @@ class SimpleImage : public AbstractImage {
   void set_pixel(int x, int y);
   unsigned int get_pixel(int x, int y);
   unsigned int _color = 0x55000000;
-  int limit = 0;
 };
 
 #endif

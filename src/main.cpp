@@ -7,12 +7,16 @@
 #include <vector>
 #include <memory>
 
+#include "SDL.h"
+#include "SDL_TTF.h"
+
 #include "mandelbrot_image.h"
 #include "prof_timer.h"
 #include "simple_image.h"
 #include "image_creator.h"
 #include "input_controller.h"
 #include "slider.h"
+#include "button.h"
 #include "renderer.h"
 
 int opt_int(std::string arg, int ret)
@@ -87,7 +91,6 @@ int main(int argc, char *argv[])
     }
   }
 
-
   ImageCreator imageCreator{fractal, width, height, zoom, zoom_to, iterations};
   imageCreator.Create();
 
@@ -102,13 +105,23 @@ int main(int argc, char *argv[])
   inputController.SetImageCreator(imageCreator);
 
   // initialize uiElements
-  // std::vector<UIElement*> uiElements = { new Slider(0, 0, 100, 100) };
+  if (TTF_Init() == -1) {
+    std::cerr << "Error initializing font: " << TTF_GetError() << std::endl;
+    // exit or return error code
+}
+
+  TTF_Font* font;
+  std::string fontPath = "assets/fonts/Comfortaa-Regular.ttf";
+  int fontSize = 12;
+  font = TTF_OpenFont(fontPath.c_str(), fontSize);
+  if (!font)
+  {
+    std::cerr << "Error initializing font: " << TTF_GetError() << std::endl;
+    return 0;
+  }
 
   int marginTop = 5;
-
-  // use smart pointer to avoid memory leak
   std::shared_ptr<Slider> sliderZoom = std::make_shared<Slider>();
-  
   sliderZoom->SetH(20);
   sliderZoom->SetW(100);
   sliderZoom->SetX(10);
@@ -118,10 +131,10 @@ int main(int argc, char *argv[])
   // sliderZoom->SetValue(50);
   sliderZoom->SetName("zoom");
 
-  renderer.AddUIElement(std::move(sliderZoom)); 
+  renderer.AddUIElement(std::move(sliderZoom));
 
   std::shared_ptr<Slider> sliderIterations = std::make_shared<Slider>();
-  
+
   sliderIterations->SetH(20);
   sliderIterations->SetW(100);
   sliderIterations->SetX(10);
@@ -131,12 +144,25 @@ int main(int argc, char *argv[])
   // slider->SetValue(50);
   sliderIterations->SetName("iterations");
 
-  renderer.AddUIElement(std::move(sliderIterations)); 
-  
-  // renderer.AddUIElement(std::move(sliderIterations));
+  renderer.AddUIElement(std::move(sliderIterations));
+
+  std::shared_ptr<Button> buttonNext = std::make_shared<Button>();
+
+  buttonNext->SetFont(font);
+  buttonNext->SetH(20);
+  buttonNext->SetW(100);
+  buttonNext->SetX(10);
+  buttonNext->SetY(50 + marginTop);
+  buttonNext->SetMin(0); // 30
+  buttonNext->SetMax(200);
+  buttonNext->SetLabel("Next");
+  buttonNext->SetName("buttonNext");
+
+  renderer.AddUIElement(std::move(buttonNext));
+
   // update PixelArray
   imageCreator.Update();
-    
+
   bool isRunning = true;
   bool showUI = false;
   while (isRunning)
@@ -148,6 +174,9 @@ int main(int argc, char *argv[])
     // delay
     SDL_Delay(1000 / 60);
   }
+
+  TTF_CloseFont(font);
+  TTF_Quit();
 
   return 0;
 }

@@ -40,6 +40,38 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std
         {
             isRunning = false;
         }
+
+        // Handle mouse events
+        // handle doubleClick to toggle showGui, handle mouse wheel to zoom in and out, handle one mouse clik to move image
+        if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                if (event.button.clicks == 2)
+                {
+                    showUI = !showUI;
+                }
+            }
+            if (event.type == SDL_MOUSEWHEEL)
+            {
+                if (event.wheel.y > 0)
+                {
+                    _imageCreator->SetZoom(_imageCreator->GetZoom() + 0.1);
+                    _imageCreator->Update();
+                }
+                else if (event.wheel.y < 0)
+                {
+                    _imageCreator->SetZoom(_imageCreator->GetZoom() - 0.1);
+                    _imageCreator->Update();
+                }
+            }
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                // _imageCreator->SetMousePosition(mouse.x, mouse.y);
+                _imageCreator->NextFractal();
+            }
+        }
+
         // Handle key events
         if (event.type == SDL_KEYDOWN)
         {
@@ -63,6 +95,15 @@ void InputController::HandleInput(bool &isRunning, bool &showUI, std::vector<std
             case SDLK_p:
                 // _imageCreator->PrintImage();
                 break;
+                // Left Arrows Key
+            case SDLK_LEFT:
+                // _imageCreator->MoveImage(-1, 0);
+                break;
+                // Right Arrows Key
+            case SDLK_RIGHT:
+                // _imageCreator->MoveImage(1, 0);
+                break;
+
             default:
                 break;
             }

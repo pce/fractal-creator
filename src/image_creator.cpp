@@ -101,7 +101,7 @@ void ImageCreator::Create()
 
 void ImageCreator::Update()
 {
-    // experimenting, this should be done in a thread
+    // experimenting, should this done async, in a thread?
 
     if (_fractal == "Mandelbrot")
     {
@@ -167,4 +167,16 @@ void ImageCreator::SetFilename(std::string filename)
 void ImageCreator::SetPath(std::string path)
 {
     _path = path;
+}
+
+void ImageCreator::NextFractal()
+{
+    _currentFractal = (_currentFractal + 1) % _fractalList.size();
+    SetFractal(_fractalList[_currentFractal]);
+}
+
+void ImageCreator::PrevFractal()
+{
+    _currentFractal = (_currentFractal - 1 + _fractalList.size()) % _fractalList.size();
+    SetFractal(_fractalList[_currentFractal]);
 }

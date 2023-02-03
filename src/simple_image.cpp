@@ -81,38 +81,30 @@ void SimpleImage::draw_rect(int x1, int y1, int x2, int y2)
 
 void SimpleImage::draw_carpet(int x, int y, int size)
 {
-  if (size < limit)
+  if (size <= 0) return;
+
+  draw_rect(x, y, size, size);
+
+  int sub_size = size / 3;
+  int i, j;
+  for (i = 0; i < 3; i++)
   {
-    return;
-  }
-  size /= 3;
-  for (int i = 0; i < 9; i++)
-  {
-    if (i == 4)
+    for (j = 0; j < 3; j++)
     {
-      draw_rect(x + size, y + size, size, size);
-    }
-    else
-    {
-      draw_carpet(x + (i % 3) * size, y + (i / 3) * size, size);
+      if (i == 1 && j == 1) continue;
+      draw_carpet(x + i * sub_size, y + j * sub_size, sub_size);
     }
   }
+
 }
 
 void SimpleImage::set_color(unsigned int color) { _color = color; }
 
 void SimpleImage::calculate()
 {
-  // example
   draw_bg(Color::green());
-  draw_rect(10, 10, _width - 10, _height - 10);
-
-  set_color(Color::blue());
-  draw_rect(3, 3, _width - 6, _height - 6);
-  draw_rect(30, 30, _width - 30, _height - 30);
-
-  // set_color(Color::black());
-  // draw_carpet(0, 0, _width);
+  set_color(Color::black());
+  draw_carpet(0, 0, _width);
 }
 
 Color SimpleImage::value(int x, int y)
