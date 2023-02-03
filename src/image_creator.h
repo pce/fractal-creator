@@ -78,8 +78,6 @@ private:
     int _zoom_to = 0;
     int _iterations = 0;
     std::vector<int> pixel_array;
-
-    // new variables
     std::vector<std::string> _fractalList;
     int _currentFractal;
 };

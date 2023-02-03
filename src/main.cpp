@@ -12,7 +12,7 @@
 
 #include "mandelbrot_image.h"
 #include "prof_timer.h"
-#include "simple_image.h"
+#include "sierpinski_carpet.h"
 #include "image_creator.h"
 #include "input_controller.h"
 #include "slider.h"

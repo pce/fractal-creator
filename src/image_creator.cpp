@@ -1,6 +1,8 @@
 #include "image_creator.h"
 #include "mandelbrot_image.h"
-#include "simple_image.h"
+#include "sierpinski_carpet.h"
+#include "julia_fractal.h"
+
 #include "prof_timer.h"
 #include <future>
 #include <mutex>
@@ -71,7 +73,7 @@ void ImageCreator::Create()
                 [iterations, width, height, &mutex](int i)
                 {
                     std::unique_lock<std::mutex> guard(mutex);
-                    SimpleImage img{width, height};
+                    SierpinskyCarpet img{width, height};
                     img.init();
                     img.set_zoom(i);
                     if (iterations > 0)
@@ -115,13 +117,29 @@ void ImageCreator::Update()
         img.render_to_file();
         pixel_array = img.get_pixels();
     }
-    else
-    {
-        SimpleImage img{_width, _height};
+    else if (_fractal == "SierpinskyCarpet") {
+        SierpinskyCarpet img{_width, _height};
         img.init();
         img.set_zoom(_zoom);
         img.calculate();
         pixel_array = img.get_pixels();
+    } else if (_fractal == "SierpinskiTriangle") {
+        // ...
+    } else if (_fractal == "Julia") {
+        // ...
+        JuliaFractal img{_width, _height};
+        img.init();
+        img.set_zoom(_zoom);
+        // if (_iterations > 0)
+        // {
+        //     img.set_iterations(_iterations);
+        // }
+        img.calculate();
+        pixel_array = img.get_pixels();
+
+    } else {
+        std::cout << "unknown fractal: '" << _fractal << "'" << std::endl;
+        // return 1;
     }
 }
 

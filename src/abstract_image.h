@@ -40,6 +40,13 @@ protected:
    */
   Color long_rainbow(double val, double max);
 
+  /**
+   * \brief takes in the number of iterations and the maximum number of iterations and returns a color
+   * @param iterations
+   * @param max_iterations
+   */
+  Color solid_rainbow(int iterations, int max_iterations);
+
   /** \brief Width in Pixel */
   int _width = 640;
   /** \brief Height in Pixel */
