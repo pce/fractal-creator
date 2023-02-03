@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <cmath>
 
 AbstractImage::AbstractImage() {
   std::cout << "construct AbstractImage" << std::endl;
@@ -125,10 +126,9 @@ Color AbstractImage::long_rainbow(double val, double max) {
 
 Color AbstractImage::solid_rainbow(int iterations, int max_iterations) 
 {
-
     double frequency = M_PI * 2.0 / max_iterations;
-    int red = (sin(frequency * iterations + 0.0) + 1.0) * 127.5;
-    int green = (sin(frequency * iterations + 2.0 * M_PI / 3.0) + 1.0) * 127.5;
-    int blue = (sin(frequency * iterations + 4.0 * M_PI / 3.0) + 1.0) * 127.5;
+    int red = static_cast<int>((sin(frequency * iterations + 0.0) + 1.0) * 127.5);
+    int green = static_cast<int>((sin(frequency * iterations + 2.0 * M_PI / 3.0) + 1.0) * 127.5);
+    int blue = static_cast<int>((sin(frequency * iterations + 4.0 * M_PI / 3.0) + 1.0) * 127.5);
     return Color(red, green, blue);
 }

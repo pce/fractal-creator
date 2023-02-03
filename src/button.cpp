@@ -15,7 +15,7 @@ void Button::Draw(SDL_Renderer *renderer)
     SDL_RenderFillRect(renderer, &borderRect);
 
     SDL_Color textColor = {0, 0, 0, 255};
-    SDL_Surface *textSurface = TTF_RenderText_Solid(_font, _label.c_str(), textColor);
+    SDL_Surface *textSurface = TTF_RenderUTF8_Shaded(_font, _label.c_str(), textColor, {255, 255, 255, 255});
     SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     int textW = 0, textH = 0;
     SDL_QueryTexture(textTexture, NULL, NULL, &textW, &textH);
@@ -25,7 +25,9 @@ void Button::Draw(SDL_Renderer *renderer)
     SDL_DestroyTexture(textTexture);
 }
 
-void Button::Update() {}
+void Button::Update()
+{
+}
 
 // void Button::SetValue(int value)
 // {
@@ -98,7 +100,7 @@ void Button::SetH(int h)
     _h = h;
 }
 
-void Button::SetCallback(std::function<void()>  callback)
+void Button::SetCallback(std::function<void()> callback)
 {
     _callback = callback;
 }

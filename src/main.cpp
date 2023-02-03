@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
   buttonNext->SetH(20);
   buttonNext->SetW(100);
   buttonNext->SetX(10);
-  buttonNext->SetY(50 + marginTop);
+  buttonNext->SetY(60 + marginTop);
   buttonNext->SetMin(0); // 30
   buttonNext->SetMax(200);
   buttonNext->SetLabel("Next");
