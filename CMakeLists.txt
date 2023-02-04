@@ -26,7 +26,7 @@ include_directories(${SDL2_TTF_INCLUDE_DIR})
 
 
 
-add_executable(${PROJECT_NAME} src/main.cpp src/math_util.h src/slider.cpp src/button.cpp src/ui_callback.cpp src/ui_element.cpp src/input_controller.cpp src/renderer.cpp src/abstract_image.cpp src/simple_image.cpp src/mandelbrot_image.cpp src/image_creator.cpp src/color.cpp src/prof_timer.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/math_util.h src/slider.cpp src/button.cpp src/ui_callback.cpp src/ui_element.cpp src/input_controller.cpp src/renderer.cpp src/abstract_image.cpp src/simple_image.cpp src/sierpinski_carpet.cpp src/mandelbrot_image.cpp src/julia_fractal.cpp src/burning_ship_fractal.cpp  src/image_creator.cpp src/color.cpp src/prof_timer.cpp)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 # string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
 # target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})

@@ -15,7 +15,7 @@ void Button::Draw(SDL_Renderer *renderer)
     SDL_RenderFillRect(renderer, &borderRect);
 
     SDL_Color textColor = {0, 0, 0, 255};
-    SDL_Surface *textSurface = TTF_RenderUTF8_Shaded(_font, _label.c_str(), textColor, {255, 255, 255, 255});
+    SDL_Surface *textSurface = TTF_RenderUTF8_Blended(_font, _label.c_str(), textColor);
     SDL_Texture *textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     int textW = 0, textH = 0;
     SDL_QueryTexture(textTexture, NULL, NULL, &textW, &textH);
@@ -33,16 +33,6 @@ void Button::Update()
 // {
 //     _value = value;
 // }
-
-void Button::SetMin(int min)
-{
-    _min = min;
-}
-
-void Button::SetMax(int max)
-{
-    _max = max;
-}
 
 void Button::SetMousePosition(int x, int y)
 {

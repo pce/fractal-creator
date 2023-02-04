@@ -111,8 +111,8 @@ int main(int argc, char *argv[])
 }
 
   TTF_Font* font;
-  std::string fontPath = "assets/fonts/Comfortaa-Regular.ttf";
-  int fontSize = 12;
+  std::string fontPath = "assets/fonts/BebasNeue-Regular.ttf";
+  int fontSize = 16;
   font = TTF_OpenFont(fontPath.c_str(), fontSize);
   if (!font)
   {
@@ -153,8 +153,6 @@ int main(int argc, char *argv[])
   buttonNext->SetW(100);
   buttonNext->SetX(10);
   buttonNext->SetY(60 + marginTop);
-  buttonNext->SetMin(0); // 30
-  buttonNext->SetMax(200);
   buttonNext->SetLabel("Next");
   buttonNext->SetName("buttonNext");
   buttonNext->SetCallback([&imageCreator]() {

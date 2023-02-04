@@ -25,8 +25,6 @@ public:
 
 
 protected:
-    int _min{0};
-    int _max{100};
     std::string _label;
     std::string _name;
 
