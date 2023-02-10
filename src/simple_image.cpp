@@ -59,9 +59,6 @@ void SimpleImage::draw_bg(unsigned int color)
   {
     pixel_array[i] = color;
   }
-  std::cout << "Size : " << pixel_array.size() << std::endl;
-  std::cout << "Capacity : " << pixel_array.capacity() << std::endl;
-  std::cout << "Max_Size : " << pixel_array.max_size() << std::endl;
 }
 
 void SimpleImage::draw_rect(int x1, int y1, int x2, int y2)

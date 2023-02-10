@@ -21,8 +21,6 @@ public:
     void SetLabel(const std::string &label);
     void SetName(const std::string &name);
     void SetCallback(std::function<void()> callback);
-    bool HitTest(int x, int y);
-
 
 protected:
     std::string _label;

@@ -42,18 +42,9 @@ void Slider::SetMax(int max)
 void Slider::SetMousePosition(int x, int y)
 {
     // std::cout << "Mouse clicked at: " << x << ", " << y << std::endl;
-    if (HitTest(x, y))
+    if (IsMouseOver(x, y))
     {
         _value = mathutil::map(x - _x, 0, _w, _min, _max);
         std::cout << "Mouse clicked on slider, value: " << _value << std::endl;
     }
-}
-
-bool Slider::HitTest(int x, int y)
-{
-    if (x >= _x && x <= _x + _w && y >= _y && y <= _y + _h)
-    {
-        return true;
-    }
-    return false;
 }

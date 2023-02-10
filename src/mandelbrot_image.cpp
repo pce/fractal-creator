@@ -57,12 +57,12 @@ Color MandelbrotImage::value(int x, int y)
     iteration++;
   }
 
-  // int r_val = 0;
-  int r_val = 255;
-  // int g_val = 0;
-  int g_val = 255;
-  // int b_val = 0;
-  int b_val = 255;
+  int r_val = 0;
+  // int r_val = 255;
+  int g_val = 0;
+  // int g_val = 255;
+  int b_val = 0;
+  // int b_val = 255;
   //   r_val = static_cast<int>(iteration * 255.0 / max_iterations);
 
   Color color{r_val, g_val, b_val};
@@ -70,7 +70,8 @@ Color MandelbrotImage::value(int x, int y)
   if (iteration < max_iterations)
   {
     // color = long_rainbow(max_iterations * 3, iteration);
-    color = long_rainbow(max_iterations * 0.75, iteration);
+    // color = long_rainbow(max_iterations * 0.75, iteration);
+    color = solid_rainbow(max_iterations * 0.75, iteration);
   }
   // set color into pixel_array
 

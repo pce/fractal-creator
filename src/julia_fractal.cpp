@@ -90,15 +90,17 @@ void JuliaFractal::calculate()
 {
     draw_bg(0xFFFFFF);
     int iterations;
-    double zx, zy, cx, cy, tmp;
+    double zx, zy, tmp;
+    double cx = _constant_real;
+    double cy = _constant_imag;
+
     for (int x = 0; x < _width; x++)
     {
         for (int y = 0; y < _height; y++)
         {
             zx = 1.5 * (x - _width / 2) / (_width / 4);
             zy = (y - _height / 2) / (_height / 4);
-            cx = _constant_real;
-            cy = _constant_imag;
+
             iterations = 0;
 
             while (zx * zx + zy * zy < 4 && iterations < _iterations)
@@ -108,8 +110,10 @@ void JuliaFractal::calculate()
                 zx = tmp;
                 iterations++;
             }
+
             set_color(solid_rainbow(iterations, _iterations).GetRGB());
             set_pixel(x, y);
         }
     }
 }
+

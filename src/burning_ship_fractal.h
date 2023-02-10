@@ -27,7 +27,9 @@ private:
     void set_pixel(int x, int y);
     unsigned int get_pixel(int x, int y);
     unsigned int _color = 0x55000000;
+    int calculate_iterations(double zx, double zy, double cx, double cy, int iterations_limit);
     // max iterations 100
+    // int _iterations = 64; 
     int _iterations = 64; 
     double _constant_real;
     double _constant_imag;

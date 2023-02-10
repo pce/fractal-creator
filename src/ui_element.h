@@ -26,7 +26,7 @@ public:
     {
         return _name;
     }
-    // bool IsMouseOver(int x, int y);
+    bool IsMouseOver(int x, int y);
     int GetValue() { return _value; }
     // float GetValue() { return _value; }
     int GetX() { return _x; }
@@ -38,10 +38,6 @@ public:
     void SetY(int y) { _y = y; }
     void SetW(int w) { _w = w; }
     void SetH(int h) { _h = h; }
-    // void SetFont(std::shared_ptr<TTF_Font> font)
-    // {
-    //     _font = font;
-    // }
     void SetFont(TTF_Font* font)
     {
         _font = font;
@@ -54,7 +50,6 @@ protected:
     int _y{0};
     int _w{0};
     int _h{0};
-    // std::shared_ptr<TTF_Font> _font;
     TTF_Font* _font;
 };
 

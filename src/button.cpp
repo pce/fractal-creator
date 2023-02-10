@@ -37,7 +37,7 @@ void Button::Update()
 void Button::SetMousePosition(int x, int y)
 {
     // std::cout << "Mouse clicked at: " << x << ", " << y << std::endl;
-    if (HitTest(x, y))
+    if (IsMouseOver(x, y))
     {
         std::cout << "Mouse clicked on button: " << _label << std::endl;
         try
@@ -49,15 +49,6 @@ void Button::SetMousePosition(int x, int y)
             std::cerr << "Button has no callback function: " << e.what() << std::endl;
         }
     }
-}
-
-bool Button::HitTest(int x, int y)
-{
-    if (x >= _x && x <= _x + _w && y >= _y && y <= _y + _h)
-    {
-        return true;
-    }
-    return false;
 }
 
 void Button::SetLabel(const std::string &label)

@@ -11,8 +11,6 @@ public:
     void SetValue(int value);
     void SetMin(int min);
     void SetMax(int max);
-    bool HitTest(int x, int y);
-
 
 protected:
     int _min{0};

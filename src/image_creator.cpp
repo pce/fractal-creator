@@ -115,6 +115,7 @@ void ImageCreator::Update()
         {
             img.set_iterations(_iterations);
         }
+        // why, why, why, why, why, why, why, why, why, why, why, why, why, why,
         img.render_to_file();
         pixel_array = img.get_pixels();
     }

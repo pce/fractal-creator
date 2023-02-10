@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
+// #include <complex>
 
 void BurningShipFractal::init()
 {
@@ -11,8 +12,14 @@ void BurningShipFractal::init()
     pixel_array.resize(_width * _height + 1);
     pixel_array.reserve(_width * _height + 1);
 
-    _constant_real = -0.8;
-    _constant_imag = 0.156;
+    const long double FCT = 2.85;
+    long double factor = FCT / _width;
+    _constant_real = ( factor * 184 ) + -1.4;
+    _constant_imag = ( factor * 307 ) + -2.0;
+
+    // std::complex<long double> c;
+    // c.imag( ( factor * 184 ) + -1.4 );
+    // c.real( ( factor * 307 ) + -2.0 );
 }
 
 void BurningShipFractal::set_pixel(int x, int y)
@@ -90,31 +97,36 @@ Color BurningShipFractal::value(int x, int y)
     return color;
 }
 
+int BurningShipFractal::calculate_iterations(double zx, double zy, double cx, double cy, int iterations_limit)
+{
+    double tmp;
+    int iterations = 0;
+    while (zx * zx + zy * zy < 4 && iterations < iterations_limit)
+    {
+        tmp = zx * zx - zy * zy + cx;
+        zy = 2 * zx * zy + cy;
+        zx = tmp;
+        iterations++;
+    }
+    return iterations;
+}
+
 void BurningShipFractal::calculate()
 {
     draw_bg(0xFFFFFF);
-    int iterations;
-    double zx, zy, cx, cy, tmp;
+
     for (int x = 0; x < _width; x++)
     {
         for (int y = 0; y < _height; y++)
         {
-            zx = 1.5 * (x - _width / 2) / (_width / 4);
-            zy = (y - _height / 2) / (_height / 4);
-            cx = _constant_real;
-            cy = _constant_imag;
-            iterations = 0;
-
-            while (zx * zx + zy * zy < 4 && iterations < _iterations)
-            {
-                tmp = zx * zx - zy * zy + cx;
-                zy = fabs(2 * zx * zy) + cy; // change here
-                zx = tmp;
-                iterations++;
-            }
+            double zx = 1.5 * (x - _width / 2) / (_width / 4);
+            double zy = (y - _height / 2) / (_height / 4);
+            int iterations = calculate_iterations(zx, zy, _constant_real, _constant_imag, _iterations);
             set_color(solid_rainbow(iterations, _iterations).GetRGB());
             set_pixel(x, y);
         }
     }
 }
+
+
 
